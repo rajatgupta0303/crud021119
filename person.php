@@ -90,7 +90,7 @@ while($row = mysqli_fetch_array($result)) {
     <td><?php echo $row["join_date"]; ?></td>
     <td><?php echo $row["salary_amount"]; ?></td>
      <td>
-      <a class="btn btn-xs btn-primary" href="p_update.php?emp_id=<?php echo $row['emp_id'] ?>">Edit</a>
+      <a class="btn btn-xs btn-primary" href="pp_update.php?emp_id=<?php echo $row['emp_id'] ?>">Edit</a>
                                                    
       <a class="btn btn-xs btn-danger" onclick="return confirm('Are you sure?')" href="p_delete.php?emp_id=<?php echo $row['emp_id'] ?>">Delete</a>
      </td>

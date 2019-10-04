@@ -2,6 +2,7 @@
 
 error_reporting(0);
 include_once("config.php");
+$cdd = mysqli_query($conn,"SELECT * FROM department");
 
 //echo "<pre>";print_r($_POST);die;
 
@@ -10,8 +11,8 @@ $Fname = $_POST['fname'];
 $Lname = $_POST['lname'];
 $Dob = $_POST['dob'];
 $Gender = $_POST['gender'];
-//$Department = $_POST['department'];
-//$Manager = $_POST['manager'];
+$Department = $_POST['department'];
+$Manager = $_POST['manager'];
 $join_date = $_POST['joindate'];
 $Salary = $_POST['salary'];
     
@@ -19,16 +20,12 @@ if(!empty($_POST['fname'])){
 	
 	//$result = " UPDATE `emp` set `first_name`='$Fname', `last_name`='$Lname', `dob`='$Dob', `gender`='$Gender', `join_date`='$join_date' WHERE emp_id= '$id' ";
 	
-	$result = "UPDATE emp INNER JOIN salary USING (emp_id) SET emp.first_name='$Fname', emp.last_name='$Lname', emp.dob='$Dob', emp.gender='$Gender', emp.join_date='$join_date', salary.salary_amount='$Salary'  WHERE emp_id='$id' ";
+	//$result = "UPDATE emp INNER JOIN salary USING (emp_id) SET emp.first_name='$Fname', emp.last_name='$Lname', emp.dob='$Dob', emp.gender='$Gender', emp.join_date='$join_date', salary.salary_amount='$Salary'  WHERE emp_id='$id' ";
 	
-	//UPDATE emp INNER JOIN salary inner join department inner join dept_emp USING (emp_id) SET emp.first_name='$Fname', emp.last_name='$Lname', emp.dob='$Dob', emp.gender='$Gender', emp.join_date='$join_date', salary.salary_amount='$Salary', department.dept_name='$Department', dept_emp.dept_id='dept_id'   WHERE emp_id='$id'
+	$result="UPDATE emp JOIN salary ON emp.emp_id=salary.emp_id JOIN dept_emp ON emp.emp_id=dept_emp.emp_id SET emp.first_name='$Fname', emp.last_name='$Lname', emp.dob='$Dob', emp.gender='$Gender', emp.join_date='$join_date', salary.salary_amount='$Salary',dept_emp.dept_id='$Department' WHERE emp.emp_id='$id'";
 	
 	
-	//~ $sql1 = "UPDATE emp1 set First_name ='" . $_POST["First_name"] . "',Last_name ='" . $_POST["Last_name"] . "', gender ='" . $_POST["gender"] . "', dob='" . $_POST["dob"] . "',hiredate='" . $_POST["joindate"]  ."' WHERE emp_id='" . $_POST["emp_id"] . "'" or die("error");
-//~ $sql2 = "UPDATE Salary set salary ='" . $_POST["salary"] . "'  WHERE emp_no='" . $_POST["emp_id"] . "'" or die("error");
-//~ $sql3 = "UPDATE Dept_emp set dept_id ='" . $_POST["departm"] . "'  WHERE dept_id='" . $_POST["emp_id"] . "'" or die("error");
-	
-
+echo $result;
                 $conn->query($result) or die("error");
                        header("Location:person.php");
 }
@@ -45,8 +42,8 @@ $Fname = $row['first_name'];
 $Lname = $row['last_name'];
 $Dob = $row['dob'];
 $Gender = $row['gender'];
-//$Department = $row['department'];
-//$Manager = $row['manager'];
+$Department = $row['department'];
+//$Manager = $row['manageer'];
 $join_date = $row['join_date'];
 $Salary = $row['salary_amount'];
 }
@@ -124,7 +121,7 @@ $Salary = $row['salary_amount'];
                     </div>
                     
     
-                   <!--  <div class="form-group ">
+                    <div class="form-group ">
                         <label for="inputLName">Department</label>
                        <select class="form-control" name="department" required>
                         <option>  Select Department  </option>
@@ -139,6 +136,7 @@ $Salary = $row['salary_amount'];
  </select>
                     </div>
 
+<!--
                      <div class="form-group">
                         <label for="inputAge">Department Manager</label>
                         <select class="form-control" name="manager" required>
@@ -147,7 +145,8 @@ $Salary = $row['salary_amount'];
                             
                         </select>
                         <span class="help-block"></span>
-                    </div> -->
+                    </div>
+-->
 
                   
                      <div class="form-group">
